@@ -1,0 +1,46 @@
+{
+    "data": [
+        {
+            "paymentId": 1,
+            "serviceType": "House Cleaning",
+            "paymentAmount": 500.0,
+            "appFee": 50.0
+        },
+        {
+            "paymentId": 2,
+            "serviceType": "Laundry",
+            "paymentAmount": 750.0,
+            "appFee": 75.0
+        },
+        {
+            "paymentId": 3,
+            "serviceType": "Child Care",
+            "paymentAmount": 1000.0,
+            "appFee": 100.0
+        },
+        {
+            "paymentId": 4,
+            "serviceType": "Pet Care",
+            "paymentAmount": 1250.0,
+            "appFee": 125.0
+        },
+        {
+            "paymentId": 5,
+            "serviceType": "House Cleaning",
+            "paymentAmount": 1500.0,
+            "appFee": 150.0
+        },
+        {
+            "paymentId": 6,
+            "serviceType": "Elderly Care",
+            "paymentAmount": 1750.0,
+            "appFee": 175.0
+        },
+        {
+            "paymentId": 7,
+            "serviceType": "Child Care",
+            "paymentAmount": 2000.0,
+            "appFee": 200.0
+        }
+    ]
+}
