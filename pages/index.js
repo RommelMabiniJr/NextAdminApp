@@ -9,6 +9,8 @@ import { ProductService } from '../demo/service/ProductService';
 import { PaymentService } from '../demo/service/PaymentService';
 import { LayoutContext } from '../layout/context/layoutcontext';
 import Link from 'next/link';
+import axios from 'axios';
+
 const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -54,15 +56,61 @@ const Dashboard = () => {
         { field: 'appFee', header: 'App Fee', body: (data) => formatCurrency(data.appFee) },
     ];
 
+    
+    // call the api to get the data for users
+    const [users, setUsers] = useState(null);
+    const [posts, setPosts] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    
+    useEffect(() => {
+        const fetchUsers = async () => {
+            setIsLoading(true);
+            try {
+                const response = await axios.get(`http://localhost:5000/all/user/counts`);
+                setUsers(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+            setIsLoading(false);
+        };
+        fetchUsers();
+    }, []);
+    
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setIsLoading(true);
+            try {
+                const response = await axios.get(`http://localhost:5000/all/post/counts`);
+                setPosts(response.data);
+                // console.log(response.data)
+            } catch (error) {
+                console.error(error);
+            }
+            setIsLoading(false);
+        };
+        fetchPosts();
+    }, []);
+    
+
     // Replace this with your own logic to retrieve user counts
-    const householdCount = 10000;
-    const newHouseholdCount = 233;
-    const workerCount = 15000;
-    const newWorkerCount = 45;
+    // const householdCount = 10000;
+    // const newHouseholdCount = 233;
+    // const workerCount = 15000;
+    // const newWorkerCount = 45;
+    // const totalCount = householdCount + workerCount;
+
+    const householdCount = users ? users.find(user => user.user_type === 'household employer')?.count || 0 : 0;
+    const newHouseholdCount = 1;
+    const workerCount = users ? users.find(user => user.user_type === 'domestic worker')?.count || 0 : 0;
+    const newWorkerCount = 0;
     const totalCount = householdCount + workerCount;
 
     // Replace this with your own logic to retrieve posting & booking counts
-    const postingCount = 231;
+    const fullTimeCount = posts ? posts.find(post => post.job_type === 'full-time')?.count || 0 : 0;
+    const partTimeCount = posts ? posts.find(post => post.job_type === 'part-time')?.count || 0 : 0;
+    const temporaryCount = posts ? posts.find(post => post.job_type === 'temporary')?.count || 0 : 0;
+
+    const postingCount = fullTimeCount + partTimeCount + temporaryCount;
     const bookingCount = 150;
     const newPostingCount = 37;
     const newBookingCount = 11;
