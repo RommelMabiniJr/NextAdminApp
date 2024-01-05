@@ -1,17 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AppMenuitem from "./AppMenuitem";
 import { LayoutContext } from "./context/layoutcontext";
 import { MenuProvider } from "./context/menucontext";
 import Link from "next/link";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { signOut } from "next-auth/react";
 
 const AppMenu = () => {
+  const [confirmLogout, setConfirmLogout] = useState(false);
   const { layoutConfig } = useContext(LayoutContext);
 
   const model = [
     {
       label: "Home",
       items: [
-        { label: "Dashboard", icon: "pi pi-fw pi-home", to: "/" },
+        { label: "Dashboard", icon: "pi pi-fw pi-home", to: "/dashboard" },
         {
           label: "User-Management",
           icon: "pi pi-fw pi-user",
@@ -32,17 +35,14 @@ const AppMenu = () => {
           icon: "pi pi-fw pi-briefcase",
           to: "/kasambahay-configuration",
         },
-        {
-          label: "Support",
-          icon: "pi pi-fw pi-question-circle",
-          to: "/support",
-        },
         // { label: "Reports", icon: "pi pi-fw pi-chart-bar", to: "/reports" },
         { label: "System Settings", icon: "pi pi-fw pi-cog", to: "/settings" },
         {
           label: "Logout",
           icon: "pi pi-fw pi-sign-out",
-          to: "/logout",
+          command: () => {
+            setConfirmLogout(true);
+          },
         },
       ],
     },
@@ -198,6 +198,19 @@ const AppMenu = () => {
 
   return (
     <MenuProvider>
+      <div>
+        <ConfirmDialog
+          visible={confirmLogout}
+          onHide={() => setConfirmLogout(false)}
+          message="Are you sure you want to logout?"
+          header="Logout Confirmation"
+          icon="pi pi-exclamation-triangle"
+          acceptClassName="p-button-danger"
+          rejectClassName="p-button-secondary p-button-text"
+          accept={() => signOut()}
+          reject={() => setConfirmLogout(false)}
+        />
+      </div>
       <ul className="layout-menu">
         {model.map((item, i) => {
           return !item.seperator ? (

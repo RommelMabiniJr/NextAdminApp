@@ -4,10 +4,19 @@ import { Toast } from "primereact/toast";
 import { UserService } from "@/services/UserService";
 import DocumentsTable from "../../components/documents-management.js/DocumentsTable";
 import { DocumentService } from "@/services/DocumentService";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const DocumentsManagement = () => {
   const [users, setUsers] = useState([]);
   const toast = useRef(null);
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
 
   const showServerError = (message) => {
     toast.current.show({
@@ -32,6 +41,10 @@ const DocumentsManagement = () => {
   useEffect(() => {
     fetchAllDocuments();
   }, []);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="card">

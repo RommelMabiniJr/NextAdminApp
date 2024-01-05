@@ -8,8 +8,10 @@ import React, {
   useRef,
 } from "react";
 import { LayoutContext } from "./context/layoutcontext";
+import { useSession } from "next-auth/react";
 
 const AppTopbar = forwardRef((props, ref) => {
+  const { data: session, status } = useSession(); // session is null if no user is logged in
   const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } =
     useContext(LayoutContext);
   const menubuttonRef = useRef(null);
@@ -61,10 +63,15 @@ const AppTopbar = forwardRef((props, ref) => {
           "layout-topbar-menu-mobile-active": layoutState.profileSidebarVisible,
         })}
       >
-        <button type="button" className="p-link layout-topbar-button">
+        {/* <button type="button" className="p-link layout-topbar-button">
           <i className="pi pi-calendar"></i>
           <span>Calendar</span>
-        </button>
+        </button> */}
+
+        <div className="logged-in-as flex flex-column justify-content-center">
+          <span className="text-sm">Logged in as</span>
+          <span className="text-lg font-bold">{session?.user?.name}</span>
+        </div>
         <button type="button" className="p-link layout-topbar-button">
           <i className="pi pi-user"></i>
           <span>Profile</span>
@@ -75,10 +82,10 @@ const AppTopbar = forwardRef((props, ref) => {
                         <span>Settings</span>
                     </button>
                 </Link> */}
-        <button type="button" className="p-link layout-topbar-button">
+        {/* <button type="button" className="p-link layout-topbar-button">
           <i className="pi pi-cog"></i>
           <span>Settings</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );

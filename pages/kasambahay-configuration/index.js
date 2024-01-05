@@ -2,9 +2,18 @@ import { useState, useRef, useEffect } from "react";
 import { Card } from "primereact/card";
 import Configurations from "@/components/kasambahay-config/Configurations";
 import { ConfigService } from "@/services/ConfigService";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const KasambahayConfig = () => {
   const [configs, setConfigs] = useState([]);
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
 
   useEffect(() => {
     const fetchKasambahayConfigs = async () => {
@@ -15,6 +24,10 @@ const KasambahayConfig = () => {
 
     fetchKasambahayConfigs();
   }, []);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

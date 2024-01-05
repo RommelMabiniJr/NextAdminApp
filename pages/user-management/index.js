@@ -11,10 +11,19 @@ import { UserService } from "@/services/UserService";
 import { Avatar } from "primereact/avatar";
 import UsersTable from "../../components/user-management/UsersTable";
 import { Card } from "primereact/card";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const toast = useRef(null);
+  const router = useRouter();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
 
   const showServerError = (message) => {
     toast.current.show({
@@ -39,6 +48,10 @@ const UserManagement = () => {
 
     fetchAllUsers();
   }, []);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   const headerTemplate = () => {
     return (
