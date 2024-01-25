@@ -11,6 +11,7 @@ import { LayoutContext } from "../../layout/context/layoutcontext";
 import Link from "next/link";
 import axios from "axios";
 import { DashboardService } from "@/services/DashboardService";
+import UserOverview from "./UserOverview";
 
 const lineData = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -520,7 +521,7 @@ const DashboardContent = () => {
       </div>
 
       <div className="col-12 xl:col-6">
-        <div className="card">
+        {/* <div className="card">
           <h5>Recent Payments/Sales</h5>
           <DataTable
             value={payments}
@@ -550,7 +551,8 @@ const DashboardContent = () => {
               )}
             />
           </DataTable>
-        </div>
+        </div> */}
+        <UserOverview />
         <div className="card">
           <div className="flex justify-content-between align-items-center mb-5">
             <h5>Services Popularity Distribution</h5>

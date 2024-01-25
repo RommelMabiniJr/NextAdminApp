@@ -15,10 +15,27 @@ const AppMenu = () => {
       label: "Home",
       items: [
         { label: "Dashboard", icon: "pi pi-fw pi-home", to: "/dashboard" },
+        // {
+        //   label: "User Management",
+        //   icon: "pi pi-fw pi-user",
+        //   to: "/user-management",
+        // },
+
         {
           label: "User-Management",
           icon: "pi pi-fw pi-user",
-          to: "/user-management",
+          items: [
+            {
+              label: "Employer Accounts",
+              icon: "pi pi-fw pi-user",
+              to: "/employer-accounts",
+            },
+            {
+              label: "Kasambahay Accounts",
+              icon: "pi pi-fw pi-user",
+              to: "/kasambahay-accounts",
+            },
+          ],
         },
         {
           label: "Document-Management",

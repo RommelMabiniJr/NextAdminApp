@@ -1,5 +1,5 @@
 import Dashboard from "@/components/dashboard/DashboardContent";
-import LoginDialog from "@/components/LoginDialog";
+import LoginDialog from "@/components/login/LoginDialog";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

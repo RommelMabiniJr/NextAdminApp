@@ -269,7 +269,7 @@ const BackupRestoreSection = ({ backupSettings, backups, refetchBackups }) => {
           />
         </DataTable>
       </div>
-      <div className="backup-restore-section__restore">
+      {/* <div className="backup-restore-section__restore">
         <h3 className="text-xl mb-3">Restore </h3>
         <div className="backup-restore-section__restore__file">
           <FileUpload
@@ -285,7 +285,7 @@ const BackupRestoreSection = ({ backupSettings, backups, refetchBackups }) => {
             }
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

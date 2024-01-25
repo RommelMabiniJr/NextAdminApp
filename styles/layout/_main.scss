@@ -25,3 +25,10 @@ a {
 .layout-wrapper {
     min-height: 100vh;
 }
+
+// Customization
+
+// Sidebar: hides the default header component; must create a custom header component
+.p-sidebar .p-sidebar-header {
+    display: none;
+  }

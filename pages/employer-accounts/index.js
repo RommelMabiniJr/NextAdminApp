@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
 import { useRef } from "react";
-import { Menu } from "primereact/menu";
-import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
 import { UserService } from "@/services/UserService";
-import { Avatar } from "primereact/avatar";
-import UsersTable from "../../components/user-management/EmployerTable";
 import { Card } from "primereact/card";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import EmployerTable from "@/components/user-management/EmployerTable";
 
-const UserManagement = () => {
+const EmployerAccountsPage = () => {
   const [users, setUsers] = useState([]);
   const toast = useRef(null);
   const router = useRouter();
@@ -38,11 +31,11 @@ const UserManagement = () => {
 
     if (result.status === 200) {
       // Only store employers in state
-      const workers = result.data.filter(
+      const employers = result.data.filter(
         (user) => user.user_info.user_type === "household employer"
       );
 
-      setUsers(workers);
+      setUsers(employers);
     } else if (result.status === 500) {
       showServerError(result.data);
     }
@@ -56,12 +49,20 @@ const UserManagement = () => {
     return <div>Loading...</div>;
   }
 
+  const headerTemplate = () => {
+    return (
+      <div className="px-4 py-2">
+        <h1 className="m-0 text-3xl">Accounts Management</h1>
+      </div>
+    );
+  };
+
   return (
     <Card className="">
       <Toast ref={toast} />
-      <UsersTable users={users} refetchUsers={fetchAllUsers} />
+      <EmployerTable users={users} refetchUsers={fetchAllUsers} />
     </Card>
   );
 };
 
-export default UserManagement;
+export default EmployerAccountsPage;

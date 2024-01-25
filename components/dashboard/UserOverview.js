@@ -9,12 +9,12 @@ import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
 import { UserService } from "@/services/UserService";
 import { Avatar } from "primereact/avatar";
-import UsersTable from "../../components/user-management/EmployerTable";
+import UsersTable from "../../components/user-management/UsersTable";
 import { Card } from "primereact/card";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-const UserManagement = () => {
+const UserOverview = () => {
   const [users, setUsers] = useState([]);
   const toast = useRef(null);
   const router = useRouter();
@@ -37,12 +37,10 @@ const UserManagement = () => {
     const result = await UserService.getUsers();
 
     if (result.status === 200) {
-      // Only store employers in state
-      const workers = result.data.filter(
-        (user) => user.user_info.user_type === "household employer"
-      );
+      // shorten to 10 most recent users
+      const recentUsers = result.data.slice(0, 10);
 
-      setUsers(workers);
+      setUsers(recentUsers);
     } else if (result.status === 500) {
       showServerError(result.data);
     }
@@ -56,12 +54,23 @@ const UserManagement = () => {
     return <div>Loading...</div>;
   }
 
+  const headerTemplate = () => {
+    return (
+      <div className="px-4 py-2">
+        <h1 className="m-0 text-3xl">Recent Accounts Registered</h1>
+      </div>
+    );
+  };
+
   return (
-    <Card className="">
+    <>
       <Toast ref={toast} />
-      <UsersTable users={users} refetchUsers={fetchAllUsers} />
-    </Card>
+      <div className="card">
+        <h5>Recent Accounts Registered</h5>
+        <UsersTable users={users} refetchUsers={fetchAllUsers} />
+      </div>
+    </>
   );
 };
 
-export default UserManagement;
+export default UserOverview;

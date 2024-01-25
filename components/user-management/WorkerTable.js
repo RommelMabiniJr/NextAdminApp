@@ -1,16 +1,18 @@
 import { useRef, useState } from "react";
+import { Menu } from "primereact/menu";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Avatar } from "primereact/avatar";
 import { Tag } from "primereact/tag";
 import { Button } from "primereact/button";
 import classNames from "classnames";
 import { InputText } from "primereact/inputtext";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import SidebarEmployer from "./SidebarEmployer";
-import dayjs from "dayjs";
+import SidebarWorker from "./SidebarWorker";
 
-const UsersTable = ({ users, refetchUsers }) => {
-  const [employerDetails, setEmployerDetails] = useState({});
+const WorkerTable = ({ users, refetchUsers }) => {
+  const [workerDetails, setWorkerDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [filters, setFilters] = useState({
@@ -39,7 +41,7 @@ const UsersTable = ({ users, refetchUsers }) => {
   ];
 
   const handleViewEmployer = (rowData) => {
-    setEmployerDetails(rowData);
+    setWorkerDetails(rowData);
     setSidebarVisible(true);
   };
 
@@ -172,7 +174,7 @@ const UsersTable = ({ users, refetchUsers }) => {
       <DataTable
         value={users}
         paginator
-        rows={5}
+        rows={10}
         dataKey="user_id"
         filters={filters}
         // filterDisplay="row"
@@ -185,7 +187,7 @@ const UsersTable = ({ users, refetchUsers }) => {
           "user_info.user_type",
           "user_info.city_municipality",
         ]}
-        // header={renderHeader()}
+        header={renderHeader()}
         emptyMessage="No user records found"
       >
         {/* <Column
@@ -197,42 +199,43 @@ const UsersTable = ({ users, refetchUsers }) => {
         <Column
           field="user_info.full_name"
           header="Name"
+          sortable
           body={nameBodyTemplate}
         />
-        {/* <Column
+        <Column
           field="user_info.email"
           header="Email"
           sortable
           body={(rowData) => <>{rowData.user_info.email}</>}
-        /> */}
+        />
         <Column
           field="user_info.city_municipality"
           header="City/Municipality"
+          sortable
           body={(rowData) => <>{rowData.user_info.city_municipality}</>}
         />
-        <Column
+        {/* <Column
           field="user_info.user_type"
           header="Type"
+          sortable
           body={userTypeBodyTemplate}
-        />
+        /> */}
         <Column
-          field="user_info.created_at"
-          header="Date Registered"
-          // use dayjs to format date sample: 2023-06-10 12:30:00
-          body={(rowData) => (
-            <> {dayjs(rowData.user_info.created_at).format("MMMM D, YYYY")}</>
-          )}
+          field="user_info.verified"
+          header="Verified"
+          sortable
+          body={verifiedBodyTemplate}
         />
-        {/* <Column field="actions" header="Actions" body={actionsBodyTemplate} /> */}
+        <Column field="actions" header="Actions" body={actionsBodyTemplate} />
       </DataTable>
-      {/* <SidebarEmployer
+      <SidebarWorker
         sidebarVisible={sidebarVisible}
         setSidebarVisible={setSidebarVisible}
-        employerDetails={employerDetails}
+        workerDetails={workerDetails}
         refetchUsers={refetchUsers}
-      /> */}
+      />
     </>
   );
 };
 
-export default UsersTable;
+export default WorkerTable;
