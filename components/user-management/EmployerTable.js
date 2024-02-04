@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { InputText } from "primereact/inputtext";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import SidebarEmployer from "./SidebarEmployer";
+import { Dropdown } from "primereact/dropdown";
 
 const EmployerTable = ({ users, refetchUsers }) => {
   const [employerDetails, setEmployerDetails] = useState({});

@@ -8,6 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import SidebarEmployer from "./SidebarEmployer";
 import dayjs from "dayjs";
+import { Dropdown } from "primereact/dropdown";
 
 const UsersTable = ({ users, refetchUsers }) => {
   const [employerDetails, setEmployerDetails] = useState({});

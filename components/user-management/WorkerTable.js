@@ -10,6 +10,7 @@ import { InputText } from "primereact/inputtext";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import SidebarEmployer from "./SidebarEmployer";
 import SidebarWorker from "./SidebarWorker";
+import { Dropdown } from "primereact/dropdown";
 
 const WorkerTable = ({ users, refetchUsers }) => {
   const [workerDetails, setWorkerDetails] = useState({});

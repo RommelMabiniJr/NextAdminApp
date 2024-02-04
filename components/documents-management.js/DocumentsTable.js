@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { InputText } from "primereact/inputtext";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import DocumentDialog from "./DocumentDialog";
+import { Dropdown } from "primereact/dropdown";
 
 const DocumentsTable = ({ users, setUsers }) => {
   const actionMenu = useRef(null);
