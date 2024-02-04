@@ -166,7 +166,7 @@ const DashboardContent = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/all/user/counts`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/all/user/counts`
         );
         setUsers(response.data);
       } catch (error) {
@@ -207,7 +207,7 @@ const DashboardContent = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/all/post/counts`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/all/post/counts`
         );
         setPosts(response.data);
         // console.log(response.data)
@@ -221,7 +221,7 @@ const DashboardContent = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/all/booking/counts`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/all/booking/counts`
         );
         setBooking(response.data);
       } catch (error) {
